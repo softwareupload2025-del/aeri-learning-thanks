@@ -17,7 +17,7 @@ assets/documents/aeri-learning-activity-pack.pdf
 
 ## How the page is reached
 
-After the landing-page form receives a successful response from the Google Apps Script web app, `js/script.js` navigates to `thanks.html` on the same site. The confirmation page itself does not submit or store form data. Only `thanks.html` is used as the confirmation page; there is no second thank-you HTML page.
+After the landing-page form receives a successful response from the Google Apps Script web app, `js/script.js` navigates to the configured destination: `https://softwareupload2025-del.github.io/aeri-learning-thanks/`. The confirmation page itself does not submit or store form data. Only `thanks.html` is used as the local confirmation page; there is no second thank-you HTML page. To redirect to this local file instead, change `successRedirectUrl` in `js/script.js` to `new URL('thanks.html', window.location.href).href`.
 
 The page provides the confirmation copy and a direct download link to `assets/documents/aeri-learning-activity-pack.pdf`. The current Apps Script stores form submissions in the configured spreadsheet; it does not automatically email the PDF.
 
