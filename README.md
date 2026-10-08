@@ -33,7 +33,7 @@ The local confirmation page in this project is available at `/thanks/`. To direc
 new URL('thanks/', window.location.href).href
 ```
 
-This page displays the confirmation copy and provides the direct PDF download. It does not store form submissions or send email.
+This page displays the confirmation copy and provides the direct PDF download. It does not store form submissions or send email. When opened, `thanks/js/thanks.js` automatically returns the visitor to `https://softwareupload2025-del.github.io/aeri-learning/` after 8 seconds; clicking the download button does not cancel the redirect.
 
 ## Responsive behavior
 
