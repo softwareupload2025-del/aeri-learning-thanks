@@ -1,44 +1,53 @@
 # Aeri Learning confirmation page
 
-This README documents the standalone `thanks.html` confirmation page. Its markup, styling, and page-specific JavaScript are kept separate from the landing page files.
+The confirmation page and its page-specific assets are kept together in this `thanks/` folder. They remain separate from the landing page's shared `css/style.css` and `js/script.js` files.
 
-## Files used by this page
+## Files in this folder
 
 ```text
-thanks.html                         # Confirmation content and direct PDF download
-css/thanks.css                      # Responsive styles for the confirmation page only
-js/thanks.js                        # Download-start feedback for the confirmation page
-assets/images/aeri-learning-logo.png
-assets/icons/aeri-learning-mark.png
-assets/documents/aeri-learning-activity-pack.pdf
+thanks/
+├── index.html       # Confirmation content and direct PDF download
+├── README.md        # This guide
+├── css/
+│   └── thanks.css   # Confirmation-page-only responsive styles
+└── js/
+    └── thanks.js    # Confirmation-page download feedback
 ```
 
-`thanks.html` does not load `css/style.css` or `js/script.js`. Keep the dedicated `thanks.css` and `thanks.js` files in their listed folders and keep the referenced assets under `assets/`.
+The page loads `css/thanks.css` and `js/thanks.js` from this folder. Its logo and PDF links use `../assets/...` to reach the site's shared assets directory.
 
-## How the page is reached
+## Routing and download
 
-After the landing-page form receives a successful response from the Google Apps Script web app, `js/script.js` navigates to the configured destination: `https://softwareupload2025-del.github.io/aeri-learning-thanks/`. The confirmation page itself does not submit or store form data. Only `thanks.html` is used as the local confirmation page; there is no second thank-you HTML page. To redirect to this local file instead, change `successRedirectUrl` in `js/script.js` to `new URL('thanks.html', window.location.href).href`.
+After the landing-page form receives a successful response from the Google Apps Script web app, `js/script.js` redirects to the configured public destination:
 
-The page provides the confirmation copy and a direct download link to `assets/documents/aeri-learning-activity-pack.pdf`. The current Apps Script stores form submissions in the configured spreadsheet; it does not automatically email the PDF.
+`https://softwareupload2025-del.github.io/aeri-learning-thanks/`
+
+The local confirmation page in this project is available at `/thanks/`. To redirect form submissions to this local page instead, set `successRedirectUrl` in the root `js/script.js` to:
+
+```js
+new URL('thanks/', window.location.href).href
+```
+
+The confirmation page itself does not store form submissions or send email. It provides the confirmation copy and a direct download link to `../assets/documents/aeri-learning-activity-pack.pdf`.
 
 ## Responsive behavior
 
-The page includes a viewport meta tag and responsive rules in `css/thanks.css` for standard mobile screens and extra-small screens (up to 360 pixels). Its card, heading, logo, and download button resize to fit the viewport. Reduced-motion preferences are respected.
+`index.html` in this folder includes a viewport meta tag. The dedicated `css/thanks.css` includes desktop, mobile, extra-small screen (up to 360px), focus-visible, and reduced-motion rules. The card, heading, logo, and download button resize to fit the available width.
 
 ## Preview locally
 
-Run this command from the project root:
+From the project root, run:
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Open <http://localhost:8000/thanks.html>. Keep the `css/`, `js/`, and `assets/` folders alongside the page so the relative paths resolve. The links are also relative for GitHub Pages project sites.
+Open <http://localhost:8000/thanks/>. Keep this folder alongside the root `css/`, `js/`, and `assets/` folders so the page's local asset links resolve.
 
 ## Making changes
 
-- Edit the confirmation wording or download link in `thanks.html`.
-- Edit only confirmation-page layout and colors in `css/thanks.css`.
-- Edit only confirmation-page interactions in `js/thanks.js`.
-- If the PDF filename or location changes, update the download link in `thanks.html`.
-- If the confirmation filename changes, update the success redirect in `js/script.js` as well.
+- Edit the confirmation wording or download link in `thanks/index.html`.
+- Edit only confirmation-page styling in `thanks/css/thanks.css`.
+- Edit only confirmation-page behavior in `thanks/js/thanks.js`.
+- If the PDF moves or is renamed, update the download link in `thanks/index.html`.
+- If you want form submissions to use `/thanks/` instead of the configured public URL, update `successRedirectUrl` in root `js/script.js` as shown above.
